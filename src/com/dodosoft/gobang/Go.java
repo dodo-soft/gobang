@@ -20,6 +20,33 @@ package com.dodosoft.gobang;
  */
 public class Go {
 
+    public static final Go WHITE = new Go('○');
+    public static final Go BLACK = new Go('●');
     private char go;
 
+    Go(char go) {
+        this.go = go;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        final Go go1 = (Go)o;
+
+        if (go != go1.go) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int)go;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(this.go);
+    }
 }

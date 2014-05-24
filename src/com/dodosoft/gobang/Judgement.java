@@ -7,6 +7,7 @@ public final class Judgement implements GobangModel.Listener {
 
     private Go winner = null;
     private State state = State.DEFAULT;
+    private Go current = Go.WHITE;
 
     Judgement() {
 
@@ -20,9 +21,18 @@ public final class Judgement implements GobangModel.Listener {
         return winner;
     }
 
+    public Go getCurrent() {
+        return current;
+    }
+
     @Override
     public void onMark(final GobangModel model, final int x, final int y, final Go mark) {
-        // winnerとstateを更新
+        this.state = State.STARTED;
+        if (this.current == Go.WHITE) {
+            this.current = Go.BLACK;
+        } else {
+            this.current = Go.WHITE;
+        }
     }
 
     public static enum State {
