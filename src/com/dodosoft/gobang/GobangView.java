@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * @author Yuhi Ishikura
  */
-public class GobangView extends GridPane implements GobangModel.Listener {
+public class GobangView extends GridPane {
 
     private GobangModel model;
     private Map<CellKey, Label> cells = new HashMap<CellKey, Label>();
@@ -41,8 +41,6 @@ public class GobangView extends GridPane implements GobangModel.Listener {
             throw new IllegalArgumentException();
         }
         this.model = model;
-        this.model.addListener(judgement);
-        this.model.addListener(this);
         for (int y = 0; y < model.getHeight(); y++) {
             for (int x = 0; x < model.getWidth(); x++) {
                 Label label = new Label();
@@ -62,12 +60,7 @@ public class GobangView extends GridPane implements GobangModel.Listener {
         }
     }
 
-    @Override
-    public void onMark(final GobangModel model, final int x, final int y, final Go mark) {
-        setMark(x, y, mark);
-    }
-
-    private void setMark(int x, int y, Go mark) {
+    public void setMark(int x, int y, Go mark) {
         String css = "-fx-border-style:solid;-fx-background-size: 90%;-fx-background-repeat:stretch;-fx-background-position:center;";
         if (mark == Go.BLACK) {
             css = css + "-fx-background-image:url(\"/com/dodosoft/gobang/white.png\")";
@@ -86,8 +79,7 @@ public class GobangView extends GridPane implements GobangModel.Listener {
         return this.cells.get(new CellKey(x, y));
     }
 
-    @Override
-    public void onClear(final GobangModel model) {
+    public void clearMarks() {
         for (int y = 0; y < model.getHeight(); y++) {
             for (int x = 0; x < model.getWidth(); x++) {
                 setMark(x, y, null);

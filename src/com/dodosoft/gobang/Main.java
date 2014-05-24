@@ -8,17 +8,16 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(new File("src/com/dodosoft/gobang/MainView.fxml").toURI().toURL());
         Parent root = loader.load();
-        final GobangModel model = new ArrayGobangModel(19, 19);
-        final Judgement judgement = new Judgement();
 
         Controller ctrl = loader.getController();
-        ctrl.initialize(model, judgement);
+        ctrl.start();
 
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root));

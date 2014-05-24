@@ -5,8 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 
-public class Controller {
+public class Controller implements GobangModel.Listener {
 
+    private final Judgement judgement;
     @FXML
     private Label textLabel;
     @FXML
@@ -14,13 +15,29 @@ public class Controller {
 
     private GobangModel model;
 
+    public Controller() {
+        this.model = new ArrayGobangModel(19, 19);
+        this.judgement = new Judgement();
+        model.addListener(judgement);
+        model.addListener(this);
+    }
+
+    public void start() {
+        this.gobangView.initialize(this.model, this.judgement);
+    }
+
     @FXML
     private void clearButtonPressed(ActionEvent actionEvent) {
         this.model.clear();
     }
 
-    public void initialize(GobangModel model, Judgement judgement) {
-        this.model = model;
-        gobangView.initialize(model, judgement);
+    @Override
+    public void onMark(final GobangModel model, final int x, final int y, final Go mark) {
+        this.gobangView.setMark(x, y, mark);
+    }
+
+    @Override
+    public void onClear(final GobangModel model) {
+        this.gobangView.clearMarks();
     }
 }
