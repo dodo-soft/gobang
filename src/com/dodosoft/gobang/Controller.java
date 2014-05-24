@@ -39,6 +39,9 @@ public class Controller implements GobangModel.Listener {
     @Override
     public void onPostMark(final GobangModel model, final int x, final int y, final Go mark) {
         this.gobangView.setMark(x, y, mark);
+        if (this.judgement.getState() == Judgement.State.FINISHED) {
+            System.out.println("Winner is " + this.judgement.getWinner());
+        }
     }
 
     @Override

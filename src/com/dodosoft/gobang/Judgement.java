@@ -39,13 +39,16 @@ public final class Judgement implements GobangModel.Listener {
     public void onPostMark(final GobangModel model, final int x, final int y, final Go mark) {
         this.state = State.STARTED;
         if (checkWin(model, x, y, mark)) {
-            this.winner = this.current;
+            this.winner = mark;
             this.state = State.FINISHED;
         }
         nextTurn();
     }
 
     private boolean canMark(final GobangModel model, final int x, final int y) {
+        if (this.state == State.FINISHED) {
+            return false;
+        }
         if (x < 0 || x >= model.getWidth()) {
             return false;
         }
