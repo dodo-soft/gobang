@@ -32,7 +32,12 @@ public class Controller implements GobangModel.Listener {
     }
 
     @Override
-    public void onMark(final GobangModel model, final int x, final int y, final Go mark) {
+    public void onPreMark(final GobangModel model, final int x, final int y, final Go mark) {
+        // do nothing
+    }
+
+    @Override
+    public void onPostMark(final GobangModel model, final int x, final int y, final Go mark) {
         this.gobangView.setMark(x, y, mark);
     }
 

@@ -22,6 +22,21 @@ public class JudgementTest {
     }
 
     @Test
+    public void testOnMark_right2() throws Exception {
+        final Judgement sut = new Judgement();
+        final GobangModel model = new ArrayGobangModel(19, 19);
+        model.addListener(sut);
+
+        assertThat(sut.getWinner(), is((Go)null));
+        model.mark(5, 5, Go.WHITE);
+        model.mark(6, 5, Go.WHITE);
+        model.mark(4, 5, Go.WHITE);
+        model.mark(7, 5, Go.WHITE);
+        model.mark(3, 5, Go.WHITE);
+        assertThat(sut.getWinner(), is(Go.WHITE));
+    }
+
+    @Test
     public void testOnMark_left() throws Exception {
         final Judgement sut = new Judgement();
         final GobangModel model = new ArrayGobangModel(19, 19);

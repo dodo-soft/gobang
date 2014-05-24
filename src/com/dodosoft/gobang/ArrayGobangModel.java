@@ -46,9 +46,12 @@ final class ArrayGobangModel implements GobangModel {
 
     @Override
     public void mark(final int x, final int y, final Go mark) {
+        for (Listener listener : this.listeners) {
+            listener.onPreMark(this, x, y, mark);
+        }
         this.marks[x][y] = mark;
         for (Listener listener : this.listeners) {
-            listener.onMark(this, x, y, mark);
+            listener.onPostMark(this, x, y, mark);
         }
     }
 

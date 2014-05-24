@@ -64,6 +64,17 @@ public interface GobangModel {
     public static interface Listener {
 
         /**
+         * 碁が配置される前に呼び出されます。
+         *
+         * @param model モデル
+         * @param x     x座標(0~{@link #getWidth()}-1)
+         * @param y     y座標(0~{@link #getHeight()}-1)
+         * @param mark  碁
+         * @throws com.dodosoft.gobang.IllegalLocationException 不正な場所に置こうとした場合。この場合には{@link #onPostMark(GobangModel, int, int, Go)}は呼び出されません。
+         */
+        void onPreMark(GobangModel model, int x, int y, Go mark);
+
+        /**
          * 碁が配置された時に呼び出されます。
          *
          * @param model モデル
@@ -71,7 +82,7 @@ public interface GobangModel {
          * @param y     y座標(0~{@link #getHeight()}-1)
          * @param mark  碁
          */
-        void onMark(GobangModel model, int x, int y, Go mark);
+        void onPostMark(GobangModel model, int x, int y, Go mark);
 
         /**
          * モデルがクリアされた時に呼び出されます。

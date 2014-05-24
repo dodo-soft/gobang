@@ -5,179 +5,119 @@ package com.dodosoft.gobang;
  */
 public final class Judgement implements GobangModel.Listener {
 
-	private Go winner = null;
-	private State state = State.DEFAULT;
-	private Go current = Go.WHITE;
+    private static final int[][] DIRECTIONS = new int[][] {
+        {1, 1}, {1, 0}, {0, 1}, {1, -1}
+    };
+    private Go winner = null;
+    private State state = State.DEFAULT;
+    private Go current = Go.WHITE;
 
-	Judgement() {
+    Judgement() {
 
-	}
+    }
 
-	public State getState() {
-		return state;
-	}
+    public State getState() {
+        return state;
+    }
 
-	public Go getWinner() {
-		return winner;
-	}
+    public Go getWinner() {
+        return winner;
+    }
 
-	public Go getCurrent() {
-		return current;
-	}
+    public Go getCurrent() {
+        return current;
+    }
 
-	@Override
-	public void onMark(final GobangModel model, final int x, final int y, final Go mark) {
-		this.state = State.STARTED;
-		if(checkWin(model,x,y)){
-			this.winner = this.current;
-			this.state = State.FINISHED;
-		}
-		if (this.current == Go.WHITE) {
-			this.current = Go.BLACK;
-		} else {
-			this.current = Go.WHITE;
-		}
+    @Override
+    public void onPreMark(final GobangModel model, final int x, final int y, final Go mark) {
+        if (canMark(model, x, y) == false) {
+            throw new IllegalLocationException();
+        }
+    }
 
-	}
+    @Override
+    public void onPostMark(final GobangModel model, final int x, final int y, final Go mark) {
+        this.state = State.STARTED;
+        if (checkWin(model, x, y, mark)) {
+            this.winner = this.current;
+            this.state = State.FINISHED;
+        }
+        nextTurn();
+    }
 
-  @Override
-  public void onClear(GobangModel model){
-     // do nothing
-  }
+    private boolean canMark(final GobangModel model, final int x, final int y) {
+        if (x < 0 || x >= model.getWidth()) {
+            return false;
+        }
+        if (y < 0 || y >= model.getHeight()) {
+            return false;
+        }
+        if (model.getMark(x, y) != null) {
+            return false;
+        }
+        return true;
+    }
 
-//	private int checkRightLeft(final GobangModel model, final int x, final int y, int count){
-//		if(count<5){
-//			if(model.getMark(x+1, y) == this.current)
-//				checkRightLeft(model, x+1, y, count+1);
-//		}
-//		
-//	}
+    private void nextTurn() {
+        if (this.current == Go.WHITE) {
+            this.current = Go.BLACK;
+        } else {
+            this.current = Go.WHITE;
+        }
+    }
 
-	private boolean checkWin(final GobangModel model, final int x, final int y){
-		final int Width = model.getWidth();
-		final int Height = model.getWidth();
-		int count=0;
-		boolean result = true;
-		
-		// check 横
-		for(count=0; count<5; count++){
-			if(x+count<Width){
-				if(model.getMark(x+count, y) != this.current){
-					result = false;
-					break;
-				}
-			}
-			else
-				result = false;
-		}
-		if(result)
-			return result;
+    @Override
+    public void onClear(GobangModel model) {
+        // do nothing
+    }
 
-		result = true;
-		for(count=0; count<5; count++){
-			if(x-count >= 0){
-				if(model.getMark(x-count, y) != this.current){
-					result = false;
-					break;
-				}
-			}
-			else
-				result = false;
-		}
-		if(result)
-			return result;
+    private boolean checkWin(final GobangModel model, final int x, final int y, final Go mark) {
+        for (int i = 0; i < DIRECTIONS.length; i++) {
+            final int[] direction = DIRECTIONS[i];
+            int length = 1;
+            int xx = x;
+            int yy = y;
+            while (true) {
+                xx += direction[0];
+                yy += direction[1];
+                final Go g = getMarkSafely(model, xx, yy);
+                if (g == mark) {
+                    length++;
+                } else {
+                    break;
+                }
+            }
+            xx = x;
+            yy = y;
+            while (true) {
+                xx -= direction[0];
+                yy -= direction[1];
+                final Go g = getMarkSafely(model, xx, yy);
+                if (g == mark) {
+                    length++;
+                } else {
+                    break;
+                }
+            }
+            if (length >= 5) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-		//check 縦
-		result = true;
-		for(count=0; count<5; count++){
-			if(y+count<Height){
-				if(model.getMark(x, y+count) != this.current){
-					result = false;
-					break;
-				}
-			}
-			else
-				result = false;
-		}
-		if(result)
-			return result;
-		
-		result = true;
-		for(count=0; count<5; count++){
-			if(y-count>=0){
-				if(model.getMark(x, y-count) != this.current){
-					result = false;
-					break;
-				}
-			}
-			else
-				result = false;
-		}
-		if(result)
-			return result;
-		
-		//check 斜め
-		result = true;
-		for(count=0; count<5; count++){
-			if(x+count<Width && y+count<Height){
-				if(model.getMark(x+count, y+count) != this.current){
-					result = false;
-					break;
-				}
-			}
-			else
-				result = false;
-		}
-		if(result)
-			return result;
-		
-		result = true;
-		for(count=0; count<5; count++){
-			if(x-count>=0 && y+count<Height){
-				if(model.getMark(x-count, y+count) != this.current){
-					result = false;
-					break;
-				}
-			}
-			else
-				result = false;
-		}
-		if(result)
-			return result;
+    private static Go getMarkSafely(GobangModel model, int x, int y) {
+        if (x < 0 || x >= model.getWidth()) {
+            return null;
+        }
+        if (y < 0 || y >= model.getHeight()) {
+            return null;
+        }
+        return model.getMark(x, y);
+    }
 
-		result = true;
-		for(count=0; count<5; count++){
-			if(x-count>=0 && y-count>=0){
-				if(model.getMark(x-count, y-count) != this.current){
-					result = false;
-					break;
-				}
-			}
-			else
-				result = false;
-		}
-		if(result)
-			return result;
-		
-		result = true;
-		for(count=0; count<5; count++){
-			if(x+count<Width && y-count>=0){
-				if(model.getMark(x+count, y-count) != this.current){
-					result = false;
-					break;
-				}
-			}
-			else
-				result = false;
-		}
-		if(result)
-			return result;
-
-		return result;
-	}
-
-	public static enum State {
-		DEFAULT, STARTED, FINISHED
-	}
+    public static enum State {
+        DEFAULT, STARTED, FINISHED
+    }
 
 }
