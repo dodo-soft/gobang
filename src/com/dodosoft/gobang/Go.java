@@ -18,8 +18,8 @@ package com.dodosoft.gobang;
 /**
  * @author Yuhi Ishikura
  */
-public class Mark {
+public class Go {
 
-    private char mark;
+    private char go;
 
 }
