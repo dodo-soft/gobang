@@ -28,22 +28,26 @@ public final class Judgement implements GobangModel.Listener {
 	@Override
 	public void onMark(final GobangModel model, final int x, final int y, final Go mark) {
 		this.state = State.STARTED;
+		if(checkWin(model,x,y)){
+			this.winner = this.current;
+			this.state = State.FINISHED;
+		}
 		if (this.current == Go.WHITE) {
 			this.current = Go.BLACK;
 		} else {
 			this.current = Go.WHITE;
 		}
 
-		if(model.getMark(x, y) != null){
-			return;
-		}
-		model.mark(x, y, mark);
-		if(checkWin(model,x,y)){
-			this.winner = this.current;
-			this.state = State.FINISHED;
-		}
 	}
 
+//	private int checkRightLeft(final GobangModel model, final int x, final int y, int count){
+//		if(count<5){
+//			if(model.getMark(x+1, y) == this.current)
+//				checkRightLeft(model, x+1, y, count+1);
+//		}
+//		
+//	}
+	
 	private boolean checkWin(final GobangModel model, final int x, final int y){
 		final int Width = model.getWidth();
 		final int Height = model.getWidth();
