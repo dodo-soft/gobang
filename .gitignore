@@ -12,7 +12,10 @@
 hs_err_pid*
 
 # IntelliJ gabage
-workspace.xml
+/.idea/workspace.xml
 
 # IntelliJ Build Directory
 /out
+
+# temporary files
+*~
