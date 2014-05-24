@@ -18,12 +18,8 @@ package com.dodosoft.gobang;
 /**
  * @author Yuhi Ishikura
  */
-public class GameState {
+public class Go {
 
-    Mark mark;
-
-    public static enum StateType {
-        STARTED, FINISHED
-    }
+    private char go;
 
 }

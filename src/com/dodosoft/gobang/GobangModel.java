@@ -28,7 +28,7 @@ public interface GobangModel {
      * @param y    y座標(0~{@link #getHeight()}-1)
      * @param mark 碁
      */
-    void mark(int x, int y, Mark mark);
+    void mark(int x, int y, Go mark);
 
     /**
      * 碁を取得します。
@@ -37,7 +37,7 @@ public interface GobangModel {
      * @param y y座標(0~{@link #getHeight()}-1)
      * @return 碁
      */
-    Mark getMark(int x, int y);
+    Go getMark(int x, int y);
 
     /**
      * このモデルを監視するリスナーを追加します。
@@ -66,7 +66,7 @@ public interface GobangModel {
          * @param y     y座標(0~{@link #getHeight()}-1)
          * @param mark  碁
          */
-        void onMark(GobangModel model, int x, int y, Mark mark);
+        void onMark(GobangModel model, int x, int y, Go mark);
 
     }
 

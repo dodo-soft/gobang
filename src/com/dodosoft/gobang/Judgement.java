@@ -5,7 +5,7 @@ package com.dodosoft.gobang;
  */
 public final class Judgement implements GobangModel.Listener {
 
-    private Mark winner = null;
+    private Go winner = null;
     private State state = State.DEFAULT;
 
     Judgement() {
@@ -16,12 +16,12 @@ public final class Judgement implements GobangModel.Listener {
         return state;
     }
 
-    public Mark getWinner() {
+    public Go getWinner() {
         return winner;
     }
 
     @Override
-    public void onMark(final GobangModel model, final int x, final int y, final Mark mark) {
+    public void onMark(final GobangModel model, final int x, final int y, final Go mark) {
         // winnerとstateを更新
     }
 
