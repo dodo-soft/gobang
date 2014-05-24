@@ -15,12 +15,10 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(new File("src/com/dodosoft/gobang/MainView.fxml").toURI().toURL());
         Parent root = loader.load();
         final GobangModel model = new ArrayGobangModel(19, 19);
+        final Judgement judgement = new Judgement();
 
         Controller ctrl = loader.getController();
-        ctrl.setModel(model);
-
-        //final GobangView view = new GobangView();
-        //view.setModel(model);
+        ctrl.initialize(model, judgement);
 
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root));
