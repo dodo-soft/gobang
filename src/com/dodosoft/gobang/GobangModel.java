@@ -39,4 +39,35 @@ public interface GobangModel {
      */
     Mark getMark(int x, int y);
 
+    /**
+     * このモデルを監視するリスナーを追加します。
+     *
+     * @param listener リスナー
+     */
+    void addListener(Listener listener);
+
+    /**
+     * このモデルを監視するリスナーを削除します。
+     *
+     * @param listener リスナー
+     */
+    void removeListener(Listener listener);
+
+    /**
+     * {@link GobangModel}を監視するリスナーインターフェースです。
+     */
+    public static interface Listener {
+
+        /**
+         * 碁が配置された時に呼び出されます。
+         *
+         * @param model モデル
+         * @param x     x座標(0~{@link #getWidth()}-1)
+         * @param y     y座標(0~{@link #getHeight()}-1)
+         * @param mark  碁
+         */
+        void onMark(GobangModel model, int x, int y, Mark mark);
+
+    }
+
 }
