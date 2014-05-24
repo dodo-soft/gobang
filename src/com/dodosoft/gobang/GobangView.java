@@ -63,9 +63,9 @@ public class GobangView extends GridPane {
     public void setMark(int x, int y, Go mark) {
         String css = "-fx-border-style:solid;-fx-background-size: 90%;-fx-background-repeat:stretch;-fx-background-position:center;";
         if (mark == Go.BLACK) {
-            css = css + "-fx-background-image:url(\"/com/dodosoft/gobang/white.png\")";
-        } else if (mark == Go.WHITE) {
             css = css + "-fx-background-image:url(\"/com/dodosoft/gobang/black.png\")";
+        } else if (mark == Go.WHITE) {
+            css = css + "-fx-background-image:url(\"/com/dodosoft/gobang/white.png\")";
         } else if (mark == null) {
             // do nothing
         } else {
