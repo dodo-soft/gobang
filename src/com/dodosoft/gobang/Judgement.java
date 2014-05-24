@@ -8,12 +8,18 @@ public final class Judgement implements GobangModel.Listener {
     private static final int[][] DIRECTIONS = new int[][] {
         {1, 1}, {1, 0}, {0, 1}, {1, -1}
     };
-    private Go winner = null;
-    private State state = State.DEFAULT;
-    private Go current = Go.WHITE;
+    private Go winner;
+    private State state;
+    private Go current;
 
     Judgement() {
+        initialize();
+    }
 
+    private void initialize() {
+        this.winner = null;
+        this.state = State.DEFAULT;
+        this.current = Go.WHITE;
     }
 
     public State getState() {
@@ -71,7 +77,7 @@ public final class Judgement implements GobangModel.Listener {
 
     @Override
     public void onClear(GobangModel model) {
-        // do nothing
+        initialize();
     }
 
     private boolean checkWin(final GobangModel model, final int x, final int y, final Go mark) {
