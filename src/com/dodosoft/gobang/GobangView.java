@@ -49,7 +49,6 @@ public class GobangView extends GridPane implements GobangModel.Listener {
                 label.setStyle("-fx-border-style: solid;");
                 label.setMinWidth(30);
                 label.setMinHeight(30);
-                //label.setOpacity(0);
                 add(label, y, x);
                 final CellKey key = new CellKey(x, y);
                 this.cells.put(key, label);
@@ -63,22 +62,37 @@ public class GobangView extends GridPane implements GobangModel.Listener {
         }
     }
 
-    private Label getLabel(int x, int y) {
-        return this.cells.get(new CellKey(x, y));
-    }
-
     @Override
     public void onMark(final GobangModel model, final int x, final int y, final Go mark) {
+        setMark(x, y, mark);
+    }
+
+    private void setMark(int x, int y, Go mark) {
         String css = "-fx-border-style:solid;-fx-background-size: 90%;-fx-background-repeat:stretch;-fx-background-position:center;";
         if (mark == Go.BLACK) {
             css = css + "-fx-background-image:url(\"/com/dodosoft/gobang/white.png\")";
         } else if (mark == Go.WHITE) {
             css = css + "-fx-background-image:url(\"/com/dodosoft/gobang/black.png\")";
+        } else if (mark == null) {
+            // do nothing
         } else {
             throw new IllegalArgumentException("unsupported mark : " + mark);
         }
         final Label label = getLabel(x, y);
         label.setStyle(css);
+    }
+
+    private Label getLabel(int x, int y) {
+        return this.cells.get(new CellKey(x, y));
+    }
+
+    @Override
+    public void onClear(final GobangModel model) {
+        for (int y = 0; y < model.getHeight(); y++) {
+            for (int x = 0; x < model.getWidth(); x++) {
+                setMark(x, y, null);
+            }
+        }
     }
 
     static class CellKey {

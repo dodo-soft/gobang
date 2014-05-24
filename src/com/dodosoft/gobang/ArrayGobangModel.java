@@ -53,6 +53,18 @@ final class ArrayGobangModel implements GobangModel {
     }
 
     @Override
+    public void clear() {
+        for (int y = 0; y < getHeight(); y++) {
+            for (int x = 0; x < getWidth(); x++) {
+                this.marks[x][y] = null;
+            }
+        }
+        for (Listener listener : this.listeners) {
+            listener.onClear(this);
+        }
+    }
+
+    @Override
     public Go getMark(final int x, final int y) {
         return this.marks[x][y];
     }

@@ -40,6 +40,11 @@ public interface GobangModel {
     Go getMark(int x, int y);
 
     /**
+     * モデルをクリアします。
+     */
+    void clear();
+
+    /**
      * このモデルを監視するリスナーを追加します。
      *
      * @param listener リスナー
@@ -67,6 +72,13 @@ public interface GobangModel {
          * @param mark  碁
          */
         void onMark(GobangModel model, int x, int y, Go mark);
+
+        /**
+         * モデルがクリアされた時に呼び出されます。
+         *
+         * @param model モデル
+         */
+        void onClear(GobangModel model);
 
     }
 

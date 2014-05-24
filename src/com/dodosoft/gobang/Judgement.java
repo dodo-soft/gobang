@@ -44,6 +44,11 @@ public final class Judgement implements GobangModel.Listener {
 		}
 	}
 
+  @Override
+  public void onClear(GobangModel model){
+     // do nothing
+  }
+
 	private boolean checkWin(final GobangModel model, final int x, final int y){
 		final int Width = model.getWidth();
 		final int Height = model.getWidth();
