@@ -31,25 +31,25 @@ public class GobangView extends GridPane implements GobangModel.Listener {
 
     private GobangModel model;
     private Map<CellKey, Label> cells = new HashMap<CellKey, Label>();
-    private Judgement judgement;
 
     GobangView() {
-        this.judgement = new Judgement();
+        setStyle("-fx-background-image:url(\"/com/dodosoft/gobang/background.jpg\");-fx-background-size: stretch;");
     }
 
-    void setModel(final GobangModel model) {
+    void initialize(final GobangModel model, final Judgement judgement) {
         if (this.model != null) {
             throw new IllegalArgumentException();
         }
         this.model = model;
-        this.model.addListener(this.judgement);
+        this.model.addListener(judgement);
         this.model.addListener(this);
         for (int y = 0; y < model.getHeight(); y++) {
             for (int x = 0; x < model.getWidth(); x++) {
                 Label label = new Label();
-                label.setStyle("-fx-border-style: dashed;");
+                label.setStyle("-fx-border-style: solid;");
                 label.setMinWidth(30);
                 label.setMinHeight(30);
+                //label.setOpacity(0);
                 add(label, y, x);
                 final CellKey key = new CellKey(x, y);
                 this.cells.put(key, label);
@@ -69,13 +69,16 @@ public class GobangView extends GridPane implements GobangModel.Listener {
 
     @Override
     public void onMark(final GobangModel model, final int x, final int y, final Go mark) {
+        String css = "-fx-border-style:solid;-fx-background-size: 90%;-fx-background-repeat:stretch;-fx-background-position:center;";
         if (mark == Go.BLACK) {
-            getLabel(x, y).setText("●");
+            css = css + "-fx-background-image:url(\"/com/dodosoft/gobang/white.png\")";
         } else if (mark == Go.WHITE) {
-            getLabel(x, y).setText("○");
+            css = css + "-fx-background-image:url(\"/com/dodosoft/gobang/black.png\")";
         } else {
             throw new IllegalArgumentException("unsupported mark : " + mark);
         }
+        final Label label = getLabel(x, y);
+        label.setStyle(css);
     }
 
     static class CellKey {

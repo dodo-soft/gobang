@@ -11,8 +11,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         //Parent root = FXMLLoader.load(getClass().getResource("MainView.fxml"));
         final GobangModel model = new ArrayGobangModel(19, 19);
+        final Judgement judgement = new Judgement();
         final GobangView view = new GobangView();
-        view.setModel(model);
+        view.initialize(model, judgement);
 
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(view));

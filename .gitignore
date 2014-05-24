@@ -13,3 +13,6 @@ hs_err_pid*
 
 # IntelliJ gabage
 workspace.xml
+
+# IntelliJ Build Directory
+/out
