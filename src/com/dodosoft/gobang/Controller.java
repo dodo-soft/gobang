@@ -13,7 +13,7 @@ public class Controller {
     private void clearButtonPressed(ActionEvent actionEvent) {
         System.out.println("clear button pressed");
     }
-    public void setModel(GobangModel model){
-        gobangView.setModel(model);
+    public void initialize(GobangModel model, Judgement judgement){
+        gobangView.initialize(model, judgement);
     }
 }
