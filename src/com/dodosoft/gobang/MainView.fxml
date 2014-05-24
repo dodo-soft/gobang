@@ -1,5 +1,19 @@
-<?import javafx.scene.layout.GridPane?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<GridPane fx:controller="com.dodosoft.gobang.Controller"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
-</GridPane>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import com.dodosoft.gobang.GobangView?>
+<AnchorPane prefWidth="400" prefHeight="400" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.dodosoft.gobang.Controller">
+    <children>
+        <GobangView fx:id="gobangView"/>
+        <ToolBar maxHeight="30.0" minHeight="30.0" prefHeight="30.0" AnchorPane.bottomAnchor="0.0"
+                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <items>
+                <Button mnemonicParsing="false" onAction="#clearButtonPressed" text="Clear"/>
+                <Label text="2014, DodoSoft all right reserved." fx:id="textLabel"/>
+            </items>
+        </ToolBar>
+    </children>
+</AnchorPane>

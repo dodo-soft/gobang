@@ -33,7 +33,7 @@ public class GobangView extends GridPane implements GobangModel.Listener {
     private Map<CellKey, Label> cells = new HashMap<CellKey, Label>();
     private Judgement judgement;
 
-    GobangView() {
+    public GobangView() {
         this.judgement = new Judgement();
     }
 
