@@ -50,7 +50,7 @@ public class GobangView extends GridPane {
                 label.setStyle("-fx-border-style: solid;");
                 label.setMinWidth(30);
                 label.setMinHeight(30);
-                add(label, y, x);
+                add(label, x, y);
                 final CellKey key = new CellKey(x, y);
                 this.cells.put(key, label);
                 label.setOnMouseClicked(new EventHandler<MouseEvent>() {
