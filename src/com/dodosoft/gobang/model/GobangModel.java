@@ -1,4 +1,4 @@
-package com.dodosoft.gobang;
+package com.dodosoft.gobang.model;
 
 /**
  * 碁盤を表すインターフェースです。
@@ -70,7 +70,7 @@ public interface GobangModel {
          * @param x     x座標(0~{@link #getWidth()}-1)
          * @param y     y座標(0~{@link #getHeight()}-1)
          * @param mark  碁
-         * @throws com.dodosoft.gobang.IllegalLocationException 不正な場所に置こうとした場合。この場合には{@link #onPostMark(GobangModel, int, int, Go)}は呼び出されません。
+         * @throws IllegalLocationException 不正な場所に置こうとした場合。この場合には{@link #onPostMark(GobangModel, int, int, Go)}は呼び出されません。
          */
         void onPreMark(GobangModel model, int x, int y, Go mark);
 

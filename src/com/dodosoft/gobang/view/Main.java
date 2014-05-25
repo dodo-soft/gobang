@@ -1,4 +1,4 @@
-package com.dodosoft.gobang;
+package com.dodosoft.gobang.view;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +13,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(new File("src/com/dodosoft/gobang/MainView.fxml").toURI().toURL());
+        FXMLLoader loader = new FXMLLoader(new File("src/com/dodosoft/gobang/view/MainView.fxml").toURI().toURL());
         Parent root = loader.load();
 
         Controller ctrl = loader.getController();

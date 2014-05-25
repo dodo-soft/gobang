@@ -15,7 +15,10 @@
  */
 package com.dodosoft.gobang.ai;
 
-import com.dodosoft.gobang.*;
+import com.dodosoft.gobang.model.Go;
+import com.dodosoft.gobang.model.GobangModel;
+import com.dodosoft.gobang.model.IllegalLocationException;
+import com.dodosoft.gobang.model.Judgement;
 
 import java.text.MessageFormat;
 

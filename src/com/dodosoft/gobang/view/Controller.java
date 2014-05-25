@@ -1,9 +1,10 @@
-package com.dodosoft.gobang;
+package com.dodosoft.gobang.view;
 
 import com.dodosoft.gobang.ai.AiManager;
 import com.dodosoft.gobang.ai.Automator;
 import com.dodosoft.gobang.ai.Example_StraightAi;
 import com.dodosoft.gobang.ai.ManAi;
+import com.dodosoft.gobang.model.*;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

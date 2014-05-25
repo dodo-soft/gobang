@@ -15,8 +15,8 @@
  */
 package com.dodosoft.gobang.ai;
 
-import com.dodosoft.gobang.GobangModel;
-import com.dodosoft.gobang.Judgement;
+import com.dodosoft.gobang.model.GobangModel;
+import com.dodosoft.gobang.model.Judgement;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

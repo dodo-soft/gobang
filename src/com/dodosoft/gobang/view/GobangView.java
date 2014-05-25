@@ -13,8 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.dodosoft.gobang;
+package com.dodosoft.gobang.view;
 
+import com.dodosoft.gobang.model.Go;
+import com.dodosoft.gobang.model.GobangModel;
+import com.dodosoft.gobang.model.Judgement;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -33,7 +36,7 @@ public class GobangView extends GridPane {
     private Map<CellKey, Label> cells = new HashMap<CellKey, Label>();
 
     public GobangView() {
-        setStyle("-fx-background-image:url(\"/com/dodosoft/gobang/background.jpg\");-fx-background-size: stretch;");
+        setStyle("-fx-background-image:url(\"/com/dodosoft/gobang/view/background.jpg\");-fx-background-size: stretch;");
     }
 
     void initialize(final GobangModel model, final Judgement judgement) {
@@ -63,9 +66,9 @@ public class GobangView extends GridPane {
     public void setMark(int x, int y, Go mark) {
         String css = "-fx-border-style:solid;-fx-background-size: 90%;-fx-background-repeat:stretch;-fx-background-position:center;";
         if (mark == Go.BLACK) {
-            css = css + "-fx-background-image:url(\"/com/dodosoft/gobang/black.png\")";
+            css = css + "-fx-background-image:url(\"/com/dodosoft/gobang/view/black.png\")";
         } else if (mark == Go.WHITE) {
-            css = css + "-fx-background-image:url(\"/com/dodosoft/gobang/white.png\")";
+            css = css + "-fx-background-image:url(\"/com/dodosoft/gobang/view/white.png\")";
         } else if (mark == null) {
             // do nothing
         } else {

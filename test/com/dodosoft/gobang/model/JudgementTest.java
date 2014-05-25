@@ -1,5 +1,9 @@
-package com.dodosoft.gobang;
+package com.dodosoft.gobang.model;
 
+import com.dodosoft.gobang.model.ArrayGobangModel;
+import com.dodosoft.gobang.model.Go;
+import com.dodosoft.gobang.model.GobangModel;
+import com.dodosoft.gobang.model.Judgement;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;

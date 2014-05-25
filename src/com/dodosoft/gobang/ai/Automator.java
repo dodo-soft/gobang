@@ -15,9 +15,9 @@
  */
 package com.dodosoft.gobang.ai;
 
-import com.dodosoft.gobang.Go;
-import com.dodosoft.gobang.GobangModel;
-import com.dodosoft.gobang.Judgement;
+import com.dodosoft.gobang.model.Go;
+import com.dodosoft.gobang.model.GobangModel;
+import com.dodosoft.gobang.model.Judgement;
 
 
 /**

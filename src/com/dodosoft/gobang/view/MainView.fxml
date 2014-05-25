@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.dodosoft.gobang.GobangView?>
+<?import com.dodosoft.gobang.view.GobangView?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox prefHeight="485.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dodosoft.gobang.Controller">
+<VBox prefHeight="485.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dodosoft.gobang.view.Controller">
     <children>
         <GobangView fx:id="gobangView" prefHeight="400.0" prefWidth="400.0"/>
         <HBox>

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.dodosoft.gobang;
+package com.dodosoft.gobang.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +22,12 @@ import java.util.List;
 /**
  * @author Yuhi Ishikura
  */
-final class ArrayGobangModel implements GobangModel {
+public final class ArrayGobangModel implements GobangModel {
 
     private Go[][] marks;
     private List<Listener> listeners = new ArrayList<Listener>();
 
-    ArrayGobangModel(int width, int height) {
+    public ArrayGobangModel(int width, int height) {
         if (width < 1 || height < 1) {
             throw new IllegalArgumentException();
         }

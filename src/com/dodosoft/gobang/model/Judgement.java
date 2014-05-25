@@ -1,4 +1,4 @@
-package com.dodosoft.gobang;
+package com.dodosoft.gobang.model;
 
 /**
  * @author Yuhi Ishikura
@@ -12,7 +12,7 @@ public final class Judgement implements GobangModel.Listener {
     private State state;
     private Go current;
 
-    Judgement() {
+    public Judgement() {
         initialize();
     }
 
