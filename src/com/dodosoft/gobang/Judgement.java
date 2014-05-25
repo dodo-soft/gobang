@@ -51,7 +51,7 @@ public final class Judgement implements GobangModel.Listener {
         nextTurn();
     }
 
-    private boolean canMark(final GobangModel model, final int x, final int y) {
+    public boolean canMark(final GobangModel model, final int x, final int y) {
         if (this.state == State.FINISHED) {
             return false;
         }

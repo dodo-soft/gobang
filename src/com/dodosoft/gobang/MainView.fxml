@@ -1,19 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.dodosoft.gobang.GobangView?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<?import com.dodosoft.gobang.GobangView?>
-<AnchorPane prefWidth="400" prefHeight="400" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.dodosoft.gobang.Controller">
+<VBox prefHeight="485.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dodosoft.gobang.Controller">
     <children>
-        <GobangView fx:id="gobangView"/>
-        <ToolBar maxHeight="30.0" minHeight="30.0" prefHeight="30.0" AnchorPane.bottomAnchor="0.0"
-                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <GobangView fx:id="gobangView" prefHeight="400.0" prefWidth="400.0"/>
+        <HBox>
+            <children>
+                <GridPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" prefWidth="253.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="66.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="330.0" minWidth="10.0" prefWidth="187.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <Label text="Player 1:"/>
+                        <Label text="Player 2:" GridPane.rowIndex="1"/>
+                        <ComboBox fx:id="player1Ai" prefHeight="26.0" prefWidth="337.0" GridPane.columnIndex="1"/>
+                        <ComboBox fx:id="player2Ai" prefHeight="26.0" prefWidth="352.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    </children>
+                </GridPane>
+                <Pane prefHeight="60.0" prefWidth="148.0">
+                    <children>
+                        <Button layoutX="53.0" layoutY="20.0" mnemonicParsing="false" text="Run" onAction="#runButtonPressed"/>
+                    </children>
+                </Pane>
+            </children>
+        </HBox>
+        <ToolBar maxHeight="30.0" minHeight="30.0" prefHeight="30.0">
             <items>
                 <Button mnemonicParsing="false" onAction="#clearButtonPressed" text="Clear"/>
-                <Label text="2014, DodoSoft all right reserved." fx:id="textLabel"/>
+                <Label fx:id="textLabel" text="2014, DodoSoft all right reserved."/>
             </items>
         </ToolBar>
     </children>
-</AnchorPane>
+</VBox>
