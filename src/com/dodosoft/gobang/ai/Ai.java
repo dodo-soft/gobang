@@ -83,6 +83,7 @@ public abstract class Ai implements GobangModel.Listener {
         this.mark = mark;
         this.ui = ui;
         model.addListener(this.listener);
+        onStart();
     }
 
     /**
@@ -93,6 +94,7 @@ public abstract class Ai implements GobangModel.Listener {
         if (this.model == null) {
             throw new IllegalStateException("Not started.");
         }
+        onStop();
         this.model.removeListener(this.listener);
         this.model = null;
         this.judgement = null;
@@ -236,6 +238,20 @@ public abstract class Ai implements GobangModel.Listener {
                 }
             }
         }
+    }
+
+    /**
+     * ゲームが開始した時に呼び出されます。
+     */
+    protected void onStart() {
+
+    }
+
+    /**
+     * ゲームが終了した時に呼び出されます。
+     */
+    protected void onStop() {
+
     }
 
     /**

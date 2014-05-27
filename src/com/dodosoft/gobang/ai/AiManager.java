@@ -18,6 +18,9 @@ package com.dodosoft.gobang.ai;
 import com.dodosoft.gobang.model.GobangModel;
 import com.dodosoft.gobang.model.Judgement;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -42,6 +45,31 @@ public class AiManager {
         this.model = model;
         this.judgement = judgement;
         this.ui = ui;
+
+        loadDefautAi();
+    }
+
+    private void loadDefautAi() {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("ai.list")))) {
+            br.lines().forEach((line) -> {
+                if (line.length() == 0) {
+                    return;
+                }
+                final String[] s = line.split("\\s");
+                if (s.length != 2) {
+                    throw new IllegalStateException("Unsupported format line : " + line);
+                }
+                final String name = s[0];
+                final String className = s[1];
+                try {
+                    register(name, (Class<? extends Ai>)Class.forName(className));
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        } catch (IOException ex) {
+            throw new IllegalStateException();
+        }
     }
 
     public Set<String> getAiNames() {

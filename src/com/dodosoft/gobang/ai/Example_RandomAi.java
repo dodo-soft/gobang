@@ -18,7 +18,6 @@ package com.dodosoft.gobang.ai;
 import com.dodosoft.gobang.model.Go;
 import com.dodosoft.gobang.model.GobangModel;
 
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -27,7 +26,12 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Example_RandomAi extends Ai {
 
-    private int remainingCells = -1;
+    private int remainingCells;
+
+    @Override
+    protected void onStart() {
+        this.remainingCells = getWidth() * getHeight();
+    }
 
     @Override
     protected void onYourTurn() throws InterruptedException {
@@ -40,22 +44,10 @@ public class Example_RandomAi extends Ai {
             }
             return false;
         });
-        final AtomicBoolean marked = new AtomicBoolean(false);
-        for (int y = 0; y < getHeight(); y++) {
-            for (int x = 0; x < getWidth(); x++) {
-                final Go mark = getMark(x, y);
-                if (mark == null) {
-
-                }
-            }
-        }
     }
 
     @Override
     public void onPostMark(final GobangModel model, final int x, final int y, final Go mark) {
-        if (this.remainingCells < 0) {
-            this.remainingCells = getWidth() * getHeight();
-        }
         this.remainingCells--;
     }
 }
