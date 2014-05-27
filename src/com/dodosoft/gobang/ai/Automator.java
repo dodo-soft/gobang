@@ -67,6 +67,10 @@ public class Automator implements Runnable {
         }
     }
 
+    public void startSync() {
+        run();
+    }
+
     public void stop() {
         synchronized (this) {
             if (isRunning() == false) {
