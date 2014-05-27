@@ -62,6 +62,7 @@ public class Automator implements Runnable {
                 throw new IllegalStateException();
             }
             this.thread = new Thread(this);
+            this.thread.setDaemon(true);
             this.thread.start();
         }
     }
