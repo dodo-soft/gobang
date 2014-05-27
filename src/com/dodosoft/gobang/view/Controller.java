@@ -1,9 +1,6 @@
 package com.dodosoft.gobang.view;
 
-import com.dodosoft.gobang.ai.AiManager;
-import com.dodosoft.gobang.ai.Automator;
-import com.dodosoft.gobang.ai.Example_StraightAi;
-import com.dodosoft.gobang.ai.ManAi;
+import com.dodosoft.gobang.ai.*;
 import com.dodosoft.gobang.model.*;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -49,6 +46,7 @@ public class Controller implements GobangModel.Listener {
         this.aiManager = new AiManager(new JfxGobangModel(this.model), this.judgement, this.gobangView);
         this.aiManager.register("Man", ManAi.class);
         this.aiManager.register("Straight", Example_StraightAi.class);
+        this.aiManager.register("Random", Example_RandomAi.class);
 
         Stream.of(this.player1Ai, this.player2Ai).forEach(aiCombo -> {
             final ObservableList<String> list = aiCombo.itemsProperty().get();

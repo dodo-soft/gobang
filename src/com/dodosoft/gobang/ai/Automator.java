@@ -31,7 +31,7 @@ public class Automator implements Runnable {
     private final GobangModel model;
     private final Ui ui;
     private Ai current;
-    private long minimumExecutionTime = 500;
+    private long minimumExecutionTime = 100;
     private Thread thread;
 
     Automator(GobangModel model, Judgement judgement, Ui ui, Ai ai1, Ai ai2) {
