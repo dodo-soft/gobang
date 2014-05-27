@@ -279,7 +279,11 @@ public abstract class Ai implements GobangModel.Listener {
      * フレームワーク外から呼び出さないでください。
      */
     final void execute() {
-        onYourTurn();
+        try {
+            onYourTurn();
+        } catch (InterruptedException e) {
+            return;
+        }
         if (this.marked == false) {
             throw new IllegalAiActionException(this.mark, "Not marked.");
         }
@@ -291,8 +295,9 @@ public abstract class Ai implements GobangModel.Listener {
      * このクラス以外から呼び出さないでください。
      *
      * @throws IllegalAiActionException AIが不正なアクションを試みた場合
+     * @throws InterruptedException     ターン実行中に割り込まれた場合
      */
-    protected abstract void onYourTurn();
+    protected abstract void onYourTurn() throws InterruptedException;
 
     /**
      * セルに対するアクションを表すインターフェースです。

@@ -30,6 +30,7 @@ public class Controller implements GobangModel.Listener {
     private GobangModel model;
     private final Judgement judgement;
     private AiManager aiManager;
+    private Automator currentAutomator;
 
     public Controller() {
         this.model = new ArrayGobangModel(19, 19);
@@ -62,17 +63,28 @@ public class Controller implements GobangModel.Listener {
 
     @FXML
     private void clearButtonPressed(ActionEvent actionEvent) {
-        this.model.clear();
-        this.messageLabel.setVisible(false);
-        this.gobangView.setUserInputEnabled(false);
+        clear();
     }
 
     @FXML
     public void startButtonPressed(ActionEvent actionEvent) {
+        clear();
+
         this.aiManager.selectPlayer1(this.player1Ai.getSelectionModel().getSelectedItem());
         this.aiManager.selectPlayer2(this.player2Ai.getSelectionModel().getSelectedItem());
-        final Automator automator = this.aiManager.createAutomator();
-        automator.start();
+
+        this.currentAutomator = this.aiManager.createAutomator();
+        this.currentAutomator.start();
+    }
+
+    private void clear() {
+        this.model.clear();
+        this.messageLabel.setVisible(false);
+        this.gobangView.setUserInputEnabled(false);
+        if (this.currentAutomator != null) {
+            this.currentAutomator.stopSafely();
+            this.currentAutomator = null;
+        }
     }
 
     @Override

@@ -32,6 +32,7 @@ public class Automator implements Runnable {
     private final Ui ui;
     private Ai current;
     private long minimumExecutionTime = 500;
+    private Thread thread;
 
     Automator(GobangModel model, Judgement judgement, Ui ui, Ai ai1, Ai ai2) {
         assert model != null;
@@ -56,8 +57,37 @@ public class Automator implements Runnable {
     }
 
     public void start() {
-        final Thread thread = new Thread(this);
-        thread.start();
+        synchronized (this) {
+            if (isRunning()) {
+                throw new IllegalStateException();
+            }
+            this.thread = new Thread(this);
+            this.thread.start();
+        }
+    }
+
+    public void stop() {
+        synchronized (this) {
+            if (isRunning() == false) {
+                throw new IllegalStateException();
+            }
+            this.thread.interrupt();
+            this.thread = null;
+        }
+    }
+
+    public void stopSafely() {
+        synchronized (this) {
+            if (isRunning()) {
+                stop();
+            }
+        }
+    }
+
+    private boolean isRunning() {
+        synchronized (this) {
+            return this.thread != null;
+        }
     }
 
     @Override
@@ -77,7 +107,7 @@ public class Automator implements Runnable {
                 }
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            return;
         } finally {
             this.ai1.stop();
             this.ai2.stop();

@@ -41,14 +41,12 @@ public final class ManAi extends Ai {
     }
 
     @Override
-    protected void onYourTurn() {
+    protected void onYourTurn() throws InterruptedException {
         this.semaphore = new Semaphore(0);
         final boolean userInputEnabledOld = isUserInputEnabled();
         setUserInputEnabled(true);
         try {
             this.semaphore.acquire();
-        } catch (InterruptedException e) {
-            throw new IllegalStateException(e);
         } finally {
             setUserInputEnabled(userInputEnabledOld);
         }
