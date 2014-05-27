@@ -36,8 +36,9 @@ public class Controller implements GobangModel.Listener {
         model.addListener(this);
     }
 
-    public void start() {
+    public void initializeUI() {
         this.gobangView.initialize(this.model, this.judgement);
+        this.gobangView.setUserInputEnabled(false);
 
         this.aiManager = new AiManager(new JfxGobangModel(this.model), this.judgement, this.gobangView);
         this.aiManager.register("Man", ManAi.class);
@@ -57,10 +58,11 @@ public class Controller implements GobangModel.Listener {
     @FXML
     private void clearButtonPressed(ActionEvent actionEvent) {
         this.model.clear();
+        this.gobangView.setUserInputEnabled(false);
     }
 
     @FXML
-    public void runButtonPressed(ActionEvent actionEvent) {
+    public void startButtonPressed(ActionEvent actionEvent) {
         this.aiManager.selectPlayer1(this.player1Ai.getSelectionModel().getSelectedItem());
         this.aiManager.selectPlayer2(this.player2Ai.getSelectionModel().getSelectedItem());
         final Automator automator = this.aiManager.createAutomator();

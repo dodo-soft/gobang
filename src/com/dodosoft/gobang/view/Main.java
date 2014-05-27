@@ -18,7 +18,7 @@ public class Main extends Application {
         Parent root = loader.load();
 
         Controller ctrl = loader.getController();
-        ctrl.start();
+        ctrl.initializeUI();
         primaryStage.getIcons().add(new Image("/com/dodosoft/gobang/view/sample-icon.png"));
         primaryStage.setTitle("Gobang");
         primaryStage.setScene(new Scene(root));
