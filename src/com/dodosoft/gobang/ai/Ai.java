@@ -35,6 +35,7 @@ public abstract class Ai implements GobangModel.Listener {
     private Judgement judgement;
     private Go mark;
     private boolean marked;
+    private Ui ui;
 
     /**
      * {@link Ai}オブジェクトを構築します。
@@ -73,13 +74,14 @@ public abstract class Ai implements GobangModel.Listener {
      * @param judgement 審判
      * @param mark      AIの碁
      */
-    final void start(GobangModel model, Judgement judgement, Go mark) {
+    final void start(GobangModel model, Judgement judgement, Go mark, Ui ui) {
         if (this.model != null) {
             throw new IllegalStateException("Already running.");
         }
         this.model = model;
         this.judgement = judgement;
         this.mark = mark;
+        this.ui = ui;
         model.addListener(this.listener);
     }
 
@@ -201,6 +203,24 @@ public abstract class Ai implements GobangModel.Listener {
                 }
             }
         }
+    }
+
+    /**
+     * 碁盤へのユーザによる入力の有効/無効を設定します。
+     *
+     * @param enabled 碁盤へのユーザによる入力を有効にするのであればtrue、そうでなければfalse
+     */
+    protected final void setUserInputEnabled(boolean enabled) {
+        this.ui.setUserInputEnabled(enabled);
+    }
+
+    /**
+     * 碁盤へのユーザによる入力が有効であるか調べます。
+     *
+     * @return 碁盤へのユーザによる入力が有効かどうか
+     */
+    protected final boolean isUserInputEnabled() {
+        return this.ui.isUserInputEnabled();
     }
 
     private final void forEachMarks(CellAction action, boolean ignoreEmpty) {

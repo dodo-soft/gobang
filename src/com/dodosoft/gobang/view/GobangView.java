@@ -15,6 +15,7 @@
  */
 package com.dodosoft.gobang.view;
 
+import com.dodosoft.gobang.ai.Ui;
 import com.dodosoft.gobang.model.Go;
 import com.dodosoft.gobang.model.GobangModel;
 import com.dodosoft.gobang.model.Judgement;
@@ -30,10 +31,11 @@ import java.util.Map;
 /**
  * @author Yuhi Ishikura
  */
-public class GobangView extends GridPane {
+public class GobangView extends GridPane implements Ui {
 
     private GobangModel model;
     private Map<CellKey, Label> cells = new HashMap<CellKey, Label>();
+    private boolean userInputEnabled = true;
 
     public GobangView() {
         setStyle("-fx-background-image:url(\"/com/dodosoft/gobang/view/background.jpg\");-fx-background-size: stretch;");
@@ -56,7 +58,9 @@ public class GobangView extends GridPane {
                 label.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(final MouseEvent event) {
-                        model.mark(key.x, key.y, judgement.getCurrent());
+                        if (isUserInputEnabled()) {
+                            model.mark(key.x, key.y, judgement.getCurrent());
+                        }
                     }
                 });
             }
@@ -88,6 +92,16 @@ public class GobangView extends GridPane {
                 setMark(x, y, null);
             }
         }
+    }
+
+    @Override
+    public boolean isUserInputEnabled() {
+        return this.userInputEnabled;
+    }
+
+    @Override
+    public void setUserInputEnabled(final boolean enabled) {
+        this.userInputEnabled = enabled;
     }
 
     static class CellKey {

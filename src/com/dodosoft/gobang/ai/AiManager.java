@@ -30,16 +30,18 @@ public class AiManager {
 
     private final GobangModel model;
     private final Judgement judgement;
+    private final Ui ui;
     private Map<String, Class<? extends Ai>> ai = new LinkedHashMap<String, Class<? extends Ai>>();
     private String ai1;
     private String ai2;
 
-    public AiManager(GobangModel model, Judgement judgement) {
+    public AiManager(GobangModel model, Judgement judgement, Ui ui) {
         assert model != null;
         assert judgement != null;
 
         this.model = model;
         this.judgement = judgement;
+        this.ui = ui;
     }
 
     public Set<String> getAiNames() {
@@ -88,7 +90,7 @@ public class AiManager {
     }
 
     public Automator createAutomator() {
-        return new Automator(this.model, this.judgement, createAi(this.ai1), createAi(this.ai2));
+        return new Automator(this.model, this.judgement, this.ui, createAi(this.ai1), createAi(this.ai2));
     }
 
     private Ai createAi(String aiName) {

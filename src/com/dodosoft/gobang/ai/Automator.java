@@ -29,16 +29,18 @@ public class Automator implements Runnable {
     private final Ai ai2;
     private final Judgement judgement;
     private final GobangModel model;
+    private final Ui ui;
     private Ai current;
     private long minimumExecutionTime = 500;
 
-    Automator(GobangModel model, Judgement judgement, Ai ai1, Ai ai2) {
+    Automator(GobangModel model, Judgement judgement, Ui ui, Ai ai1, Ai ai2) {
         assert model != null;
         assert judgement != null;
         assert ai1 != null;
         assert ai2 != null;
 
         this.model = model;
+        this.ui = ui;
         this.ai1 = ai1;
         this.ai2 = ai2;
         this.judgement = judgement;
@@ -60,8 +62,10 @@ public class Automator implements Runnable {
 
     @Override
     public void run() {
-        this.ai1.start(this.model, this.judgement, Go.WHITE);
-        this.ai2.start(this.model, this.judgement, Go.BLACK);
+        this.ui.setUserInputEnabled(false);
+
+        this.ai1.start(this.model, this.judgement, Go.WHITE, this.ui);
+        this.ai2.start(this.model, this.judgement, Go.BLACK, this.ui);
         try {
             while (this.judgement.getState() != Judgement.State.FINISHED) {
                 final long started = System.currentTimeMillis();
@@ -77,6 +81,7 @@ public class Automator implements Runnable {
         } finally {
             this.ai1.stop();
             this.ai2.stop();
+            this.ui.setUserInputEnabled(true);
         }
     }
 

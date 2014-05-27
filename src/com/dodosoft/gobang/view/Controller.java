@@ -27,21 +27,22 @@ public class Controller implements GobangModel.Listener {
 
     private GobangModel model;
     private final Judgement judgement;
-    private final AiManager aiManager;
+    private AiManager aiManager;
 
     public Controller() {
         this.model = new ArrayGobangModel(19, 19);
         this.judgement = new Judgement();
-        this.aiManager = new AiManager(new JfxGobangModel(this.model), this.judgement);
         model.addListener(judgement);
         model.addListener(this);
-
-        this.aiManager.register("Man", ManAi.class);
-        this.aiManager.register("Straight", Example_StraightAi.class);
     }
 
     public void start() {
         this.gobangView.initialize(this.model, this.judgement);
+
+        this.aiManager = new AiManager(new JfxGobangModel(this.model), this.judgement, this.gobangView);
+        this.aiManager.register("Man", ManAi.class);
+        this.aiManager.register("Straight", Example_StraightAi.class);
+
         Stream.of(this.player1Ai, this.player2Ai).forEach(aiCombo -> {
             final ObservableList<String> list = aiCombo.itemsProperty().get();
             list.clear();
