@@ -24,6 +24,8 @@ public class Controller implements GobangModel.Listener {
     private ComboBox<String> player1Ai;
     @FXML
     private ComboBox<String> player2Ai;
+    @FXML
+    private Label messageLabel;
 
     private GobangModel model;
     private final Judgement judgement;
@@ -39,6 +41,9 @@ public class Controller implements GobangModel.Listener {
     public void initializeUI() {
         this.gobangView.initialize(this.model, this.judgement);
         this.gobangView.setUserInputEnabled(false);
+        this.messageLabel.setVisible(false);
+
+        this.messageLabel.setStyle("-fx-background-color:rgba(0,0,0,0.5); -fx-text-fill:rgb(220,220,220); -fx-border-style:solid; -fx-border-radius:10; -fx-background-radius: 10; -fx-font-size: 20");
 
         this.aiManager = new AiManager(new JfxGobangModel(this.model), this.judgement, this.gobangView);
         this.aiManager.register("Man", ManAi.class);
@@ -58,6 +63,7 @@ public class Controller implements GobangModel.Listener {
     @FXML
     private void clearButtonPressed(ActionEvent actionEvent) {
         this.model.clear();
+        this.messageLabel.setVisible(false);
         this.gobangView.setUserInputEnabled(false);
     }
 
@@ -78,7 +84,8 @@ public class Controller implements GobangModel.Listener {
     public void onPostMark(final GobangModel model, final int x, final int y, final Go mark) {
         this.gobangView.setMark(x, y, mark);
         if (this.judgement.getState() == Judgement.State.FINISHED) {
-            System.out.println("Winner is " + this.judgement.getWinner());
+            this.messageLabel.setVisible(true);
+            this.messageLabel.setText("Winner is " + this.judgement.getWinner());
         }
     }
 
