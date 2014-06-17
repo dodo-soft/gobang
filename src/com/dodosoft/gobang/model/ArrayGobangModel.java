@@ -54,7 +54,7 @@ public final class ArrayGobangModel implements GobangModel {
             listener.onPreMark(this, x, y, mark);
         }
         this.marks[x][y] = mark;
-        for (Listener listener : this.listeners) {
+        for (Listener listener : new ArrayList<>(this.listeners)) {
             listener.onPostMark(this, x, y, mark);
         }
     }
