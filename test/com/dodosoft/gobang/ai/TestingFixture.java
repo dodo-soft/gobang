@@ -26,7 +26,7 @@ import com.dodosoft.gobang.model.Judgement;
  */
 public class TestingFixture {
 
-    public final AiPlayer ai;
+    public final Player ai;
     public final Player enemy = new PlayerImpl();
     public final Judgement judgement;
     private final GobangModel model;
