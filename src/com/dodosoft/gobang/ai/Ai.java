@@ -21,6 +21,7 @@ import com.dodosoft.gobang.model.IllegalLocationException;
 import com.dodosoft.gobang.model.Judgement;
 
 import java.text.MessageFormat;
+import java.util.logging.Logger;
 
 
 /**
@@ -30,6 +31,7 @@ import java.text.MessageFormat;
  */
 public abstract class Ai implements GobangModel.Listener {
 
+    private static final Logger logger = Logger.getLogger(Ai.class.getName());
     private final GobangModel.Listener listener;
     private GobangModel model;
     private Judgement judgement;
@@ -44,6 +46,7 @@ public abstract class Ai implements GobangModel.Listener {
         this.listener = new GobangModel.Listener() {
             @Override
             public void onPreMark(final GobangModel model, final int x, final int y, final Go mark) {
+                logger.fine(() -> String.format("#onPreMark(this=%s, x=%d, y=%d, mark=%s", getMark(), x, y, mark));
                 try {
                     Ai.this.onPreMark(model, x, y, mark);
                 } catch (IllegalLocationException ex) {
@@ -53,6 +56,7 @@ public abstract class Ai implements GobangModel.Listener {
 
             @Override
             public void onPostMark(final GobangModel model, final int x, final int y, final Go mark) {
+                logger.fine(() -> String.format("#onPostMark(this=%s, x=%d, y=%d, mark=%s", getMark(), x, y, mark));
                 Ai.this.onPostMark(model, x, y, mark);
                 if (mark == getMark()) {
                     marked = true;
@@ -61,6 +65,7 @@ public abstract class Ai implements GobangModel.Listener {
 
             @Override
             public void onClear(final GobangModel model) {
+                logger.fine(() -> String.format("#clear(this=%s)", getMark()));
                 Ai.this.onClear(model);
             }
         };

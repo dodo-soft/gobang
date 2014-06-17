@@ -1,10 +1,14 @@
 package com.dodosoft.gobang.model;
 
+import java.util.logging.Logger;
+
+
 /**
  * @author Yuhi Ishikura
  */
 public final class Judgement implements GobangModel.Listener {
 
+    private static final Logger logger = Logger.getLogger(Judgement.class.getName());
     private static final int[][] DIRECTIONS = new int[][] {
         {1, 1}, {1, 0}, {0, 1}, {1, -1}
     };
@@ -37,6 +41,7 @@ public final class Judgement implements GobangModel.Listener {
     @Override
     public void onPreMark(final GobangModel model, final int x, final int y, final Go mark) {
         if (canMark(model, x, y) == false) {
+            logger.finest(String.format("Detected illegal action(x=%d, y=%d, mark=%s)", x, y, mark));
             throw new IllegalLocationException();
         }
     }
@@ -45,6 +50,7 @@ public final class Judgement implements GobangModel.Listener {
     public void onPostMark(final GobangModel model, final int x, final int y, final Go mark) {
         this.state = State.STARTED;
         if (checkWin(model, x, y, mark)) {
+            logger.finest("Game finished.  Winner is " + mark);
             this.winner = mark;
             this.state = State.FINISHED;
         }

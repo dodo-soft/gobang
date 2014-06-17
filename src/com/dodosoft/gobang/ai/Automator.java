@@ -19,12 +19,15 @@ import com.dodosoft.gobang.model.Go;
 import com.dodosoft.gobang.model.GobangModel;
 import com.dodosoft.gobang.model.Judgement;
 
+import java.util.logging.Logger;
+
 
 /**
  * @author Yuhi Ishikura
  */
 public class Automator implements Runnable {
 
+    private static final Logger logger = Logger.getLogger(Automator.class.getName());
     private final Ai ai1;
     private final Ai ai2;
     private final Judgement judgement;
@@ -62,6 +65,7 @@ public class Automator implements Runnable {
                 throw new IllegalStateException();
             }
             this.thread = new Thread(this);
+            this.thread.setName("AI Thread");
             this.thread.setDaemon(true);
             this.thread.start();
         }
@@ -121,7 +125,9 @@ public class Automator implements Runnable {
     }
 
     private void executeAi() {
+        logger.info("Executing Turn: " + this.current.getMark());
         this.current.execute();
+        logger.info("Executed Turn: " + this.current.getMark());
 
         if (this.current == this.ai1) {
             this.current = this.ai2;

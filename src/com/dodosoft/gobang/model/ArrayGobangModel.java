@@ -16,7 +16,9 @@
 package com.dodosoft.gobang.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 /**
@@ -24,8 +26,9 @@ import java.util.List;
  */
 public final class ArrayGobangModel implements GobangModel {
 
+    private static Logger logger = Logger.getLogger(ArrayGobangModel.class.getName());
     private Go[][] marks;
-    private List<Listener> listeners = new ArrayList<Listener>();
+    private List<Listener> listeners = Collections.synchronizedList(new ArrayList<Listener>());
 
     public ArrayGobangModel(int width, int height) {
         if (width < 1 || height < 1) {
@@ -46,6 +49,7 @@ public final class ArrayGobangModel implements GobangModel {
 
     @Override
     public void mark(final int x, final int y, final Go mark) {
+        logger.finest(() -> String.format("#mark(x=%d, y=%d, mark=%s", x, y, mark));
         for (Listener listener : this.listeners) {
             listener.onPreMark(this, x, y, mark);
         }
@@ -57,6 +61,7 @@ public final class ArrayGobangModel implements GobangModel {
 
     @Override
     public void clear() {
+        logger.finest(String.format("#clear()"));
         for (int y = 0; y < getHeight(); y++) {
             for (int x = 0; x < getWidth(); x++) {
                 this.marks[x][y] = null;
@@ -74,11 +79,13 @@ public final class ArrayGobangModel implements GobangModel {
 
     @Override
     public void addListener(final Listener listener) {
+        logger.finest(() -> String.format("#addListener(listener=%s)", listener));
         this.listeners.add(listener);
     }
 
     @Override
     public void removeListener(final Listener listener) {
+        logger.finest(() -> String.format("#removeListener(listener=%s)", listener));
         this.listeners.remove(listener);
     }
 }

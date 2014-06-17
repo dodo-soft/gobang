@@ -8,12 +8,16 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.logging.LogManager;
 
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        final LogManager logManager = LogManager.getLogManager();
+        logManager.readConfiguration(Main.class.getResourceAsStream("logging.properties"));
+
         FXMLLoader loader = new FXMLLoader(new File("src/com/dodosoft/gobang/view/MainView.fxml").toURI().toURL());
         Parent root = loader.load();
 
