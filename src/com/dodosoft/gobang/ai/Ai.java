@@ -51,13 +51,19 @@ public abstract class Ai implements GobangModel.Listener {
                     Ai.this.onPreMark(model, x, y, mark);
                 } catch (IllegalLocationException ex) {
                     throw new IllegalAiActionException(Ai.this.mark, "Tried to deny other player's action.");
+                } catch (Throwable ex) {
+                    throw new IllegalAiActionException(Ai.this.mark, "Exception was thrown while executing onPreMark().", ex);
                 }
             }
 
             @Override
             public void onPostMark(final GobangModel model, final int x, final int y, final Go mark) {
                 logger.fine(() -> String.format("#onPostMark(this=%s, x=%d, y=%d, mark=%s", getMark(), x, y, mark));
-                Ai.this.onPostMark(model, x, y, mark);
+                try {
+                    Ai.this.onPostMark(model, x, y, mark);
+                } catch (Throwable e) {
+                    throw new IllegalAiActionException(Ai.this.mark, "Exception was thrown while executing onPostMark().", e);
+                }
                 if (mark == getMark()) {
                     marked = true;
                 }
@@ -66,7 +72,11 @@ public abstract class Ai implements GobangModel.Listener {
             @Override
             public void onClear(final GobangModel model) {
                 logger.fine(() -> String.format("#clear(this=%s)", getMark()));
-                Ai.this.onClear(model);
+                try {
+                    Ai.this.onClear(model);
+                } catch (Throwable e) {
+                    throw new IllegalAiActionException(Ai.this.mark, "Exception was thrown while executing onClear().", e);
+                }
             }
         };
     }

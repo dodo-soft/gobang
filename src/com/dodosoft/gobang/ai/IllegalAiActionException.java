@@ -28,7 +28,11 @@ public class IllegalAiActionException extends RuntimeException {
     private Go mark;
 
     public IllegalAiActionException(Go mark, String message) {
-        super(message);
+        this(mark, message, null);
+    }
+
+    public IllegalAiActionException(Go mark, String message, Throwable e) {
+        super(message, e);
         this.mark = mark;
     }
 
