@@ -1,4 +1,6 @@
 gobang
 ======
 
-20140524
+* Creating native package
+
+mvn clean jfx:native
